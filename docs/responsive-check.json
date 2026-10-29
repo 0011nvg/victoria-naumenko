@@ -1,0 +1,50 @@
+[
+  {
+    "width": 320,
+    "client": 305,
+    "h1": 1,
+    "overflow": [],
+    "projects": 3,
+    "scroll": 305
+  },
+  {
+    "width": 375,
+    "client": 360,
+    "h1": 1,
+    "overflow": [],
+    "projects": 3,
+    "scroll": 360
+  },
+  {
+    "width": 390,
+    "client": 375,
+    "h1": 1,
+    "overflow": [],
+    "projects": 3,
+    "scroll": 375
+  },
+  {
+    "width": 430,
+    "client": 415,
+    "h1": 1,
+    "overflow": [],
+    "projects": 3,
+    "scroll": 415
+  },
+  {
+    "width": 768,
+    "client": 753,
+    "h1": 1,
+    "overflow": [],
+    "projects": 3,
+    "scroll": 753
+  },
+  {
+    "width": 1440,
+    "client": 1425,
+    "h1": 1,
+    "overflow": [],
+    "projects": 3,
+    "scroll": 1425
+  }
+]
