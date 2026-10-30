@@ -1,0 +1,14 @@
+Шрифты распространяются по лицензии SIL Open Font License 1.1 (https://openfontlicense.org).
+
+== manrope
+Copyright 2019 The Manrope Project Authors (https://github.com/sharanda/manrope)
+
+
+== cormorant-garamond
+Copyright 2015 The Cormorant Project Authors (github.com/CatharsisFonts/Cormorant) CormorantGaramond-Italic[wght].ttf: Copyright 2015 The Cormorant Project Authors (github.com/CatharsisFonts/Cormorant)
+
+
+== jetbrains-mono
+Copyright 2020 The JetBrains Mono Project Authors (https://github.com/JetBrains/JetBrainsMono) JetBrainsMono-Italic[wght].ttf: Copyright 2020 The JetBrains Mono Project Authors (https://github.com/JetBrains/JetBrainsMono)
+
+

@@ -1,0 +1,181 @@
+{
+  "lang": "en",
+  "locale": "en_GB",
+  "path": "en/",
+  "root": "../",
+  "meta": {
+    "title": "Victoria Naumenko — Russian Teacher: RFL and Russian as an Additional Language",
+    "description": "One-to-one Russian lessons for international learners and for children whose first language isn't Russian. Highest-category teacher, mentor and creator of educational projects.",
+    "og_title": "Victoria Naumenko — Russian lessons, teacher mentoring, educational projects",
+    "og_description": "Russian as a foreign language and as an additional language. One-to-one lessons with a highest-category teacher and creator of educational projects.",
+    "og_image": "assets/social-en.jpg",
+    "og_alt": "Victoria Naumenko — teacher of Russian and creator of educational projects",
+    "site_name": "Victoria Naumenko"
+  },
+  "ui": {
+    "skip": "Skip to content",
+    "home_label": "Victoria Naumenko — back to top",
+    "nav_label": "Main navigation",
+    "menu": "Menu",
+    "menu_close": "Close",
+    "lang_label": "Site language",
+    "new_tab": "opens in a new tab",
+    "open_project": "Open project",
+    "top": "Back to top",
+    "copyright": "© 2026 Victoria Naumenko",
+    "footer_note": "Teaching · Mentoring · Educational projects"
+  },
+  "nav": [
+    {"href": "#services", "text": "Lessons"},
+    {"href": "#about", "text": "About"},
+    {"href": "#achievements", "text": "Recognition"},
+    {"href": "#projects", "text": "Projects"},
+    {"href": "#contact", "text": "Contact"}
+  ],
+  "nav_cta": "Book a Lesson",
+  "sticky_cta": "Book a Lesson",
+  "hero": {
+    "eyebrow": "Highest-category teacher · Mentor",
+    "first": "Victoria",
+    "last": "Naumenko",
+    "prefix": "I teach",
+    "rotate": ["Russian as a foreign language", "Russian as an additional language"],
+    "sr_line": "I teach Russian as a foreign language and Russian as an additional language.",
+    "lead": "Clear explanations, plenty of speaking practice and lessons built around you. I'm also a qualified English teacher, a mentor to fellow teachers and the creator of several educational projects.",
+    "cta_primary": "Book a Lesson",
+    "cta_secondary": "Explore My Projects",
+    "portrait_alt": "Portrait of Victoria Naumenko",
+    "badge_label": "Winner of the competition",
+    "badge_title": "“Flagships of Education”",
+    "chips": ["RFL", "Russian for children", "Mentoring", "AI in teaching", "EdTech"],
+    "pillars_label": "Three sides of my work",
+    "pillars": [
+      {"n": "01", "title": "Teaching", "text": "Russian for learners of all backgrounds", "href": "#services"},
+      {"n": "02", "title": "Profession", "text": "Mentoring and recognition", "href": "#achievements"},
+      {"n": "03", "title": "Projects", "text": "Games, trainers, a practicum", "href": "#projects"}
+    ]
+  },
+  "ticker": ["speak", "говорить", "understand", "понимать", "explain", "объяснять", "create", "создавать"],
+  "services": {
+    "eyebrow": "01 / Lessons",
+    "title": "One-to-one Russian lessons.<br><em>Two paths.</em>",
+    "intro": "Choose a path and send me a message — we'll agree on format, schedule and goals together.",
+    "focus_label": "What we work on",
+    "note": "I'm also a qualified English teacher of the highest category. Prices, lesson length and format aren't listed yet — just ask in a message.",
+    "items": [
+      {
+        "id": "rfl",
+        "kicker": "RFL",
+        "title": "Russian as a Foreign Language",
+        "lead": "For international learners who want to understand spoken Russian and use it with confidence in everyday life.",
+        "points": ["Everyday conversation", "Speaking practice", "Grammar, explained clearly", "Reading and writing", "Listening comprehension", "Vocabulary building", "Communication skills"],
+        "approach": "",
+        "cta": "Book an RFL lesson"
+      },
+      {
+        "id": "ral",
+        "kicker": "For children",
+        "title": "Russian as an Additional Language",
+        "lead": "For children and teenagers whose first language isn't Russian. We work on language adaptation, speech development and understanding learning materials, so they can use Russian with confidence.",
+        "points": ["Speech development", "School vocabulary", "Understanding learning materials", "Vocabulary building", "Communication skills", "Language adaptation", "Confidence in speaking Russian"],
+        "approach": "",
+        "cta": "Book a lesson"
+      }
+    ]
+  },
+  "about": {
+    "eyebrow": "02 / About me",
+    "title": "Seeing education <em>from three sides</em>",
+    "lead": "I'm Victoria Naumenko. I work at a school in Russia — and I build the tools I wish I'd had in everyday teaching.",
+    "paragraphs": [
+      "I'm a deputy head of school, an English teacher of the highest qualification category, a teacher of Russian as a foreign and as an additional language, and a mentor to colleagues. These roles let me see education through the eyes of a learner, a teacher and a school leader.",
+      "My projects grow out of real school questions: how to make vocabulary practice engaging, how to help teachers hear each other, and how to make AI a genuinely useful assistant for a teacher."
+    ],
+    "roles_label": "What I do",
+    "roles": [
+      {"verb": "Teach", "text": "Russian as a foreign and as an additional language, plus English. I look for ways to make every topic clear and practice accessible to learners with different backgrounds."},
+      {"verb": "Lead", "text": "As a deputy head, I connect school-wide goals with teachers' day-to-day work and help turn plans into clear actions."},
+      {"verb": "Mentor", "text": "I work through difficult situations with colleagues, share experience and help them find their own professional solutions."},
+      {"verb": "Create", "text": "I design educational games and digital tools. I test what AI can do and judge it by how useful it is for teachers and learners."}
+    ],
+    "quote": "AI assists. <em>The teacher decides.</em>",
+    "quote_text": "AI tools can make preparation easier. Understanding the learner, checking materials and taking responsibility stay with the teacher."
+  },
+  "achievements": {
+    "eyebrow": "03 / Recognition",
+    "title": "Experience <em>recognised</em> by the teaching community",
+    "feature": {
+      "label": "Professional competition",
+      "title": "“Flagships of Education”",
+      "text": "Winner of the Russian national professional competition for teachers and education leaders (“Флагманы образования”)."
+    },
+    "items": [
+      {"label": "Qualification", "title": "Highest qualification category", "text": "English teacher — the top level of Russia's teacher certification"},
+      {"label": "Mentoring", "title": "Mentor teacher", "text": "Supporting colleagues' professional growth"},
+      {"label": "Competitions", "title": "City and regional level", "text": "Achievements in professional teaching competitions"},
+      {"label": "Methodology", "title": "Original resources", "text": "A role-play game, a vocabulary trainer and an AI practicum for teachers", "href": "#projects"}
+    ]
+  },
+  "projects": {
+    "eyebrow": "04 / Projects",
+    "title": "Built from practice.<br><em>Made for practice.</em>",
+    "intro": "Three different formats, one goal: to make learning — and teachers' work — clearer and more engaging.",
+    "items": [
+      {
+        "id": "pedagog",
+        "title": "PEDAGOG",
+        "kicker": "A role-play game for teachers",
+        "status": "",
+        "description": "One school situation, several professional perspectives. At first only two or three roles see the case; then new circumstances emerge and more voices join in — a classmate, a form tutor, a parent, a school psychologist, the leadership team. The game helps teachers hear different positions, separate facts from first impressions and find a solution together.",
+        "facts": [["40", "real-life school situations"], ["5–6", "roles in every situation"], ["15·40·90", "minutes — online or at the table"]],
+        "audience": "For teachers, form tutors, mentors and school leaders",
+        "note": "The game is in Russian.",
+        "url": "https://0011nvg.github.io/pedagog/",
+        "image": "assets/projects/pedagog.webp",
+        "image_m": "assets/projects/pedagog-m.webp",
+        "alt": "PEDAGOG home page: “Real situations. Different roles. New solutions”"
+      },
+      {
+        "id": "lexigo",
+        "title": "LEXIGO",
+        "kicker": "An English vocabulary platform",
+        "status": "In development",
+        "description": "Vocabulary from the Spotlight textbooks turned into short, game-based practice. Learners pick a textbook and lesson, then train words in the mode they like: flashcards, multiple choice, spelling, audio dictation, matching and a final test. Teachers can print A4 quizzes.",
+        "facts": [["2–9", "school years, Spotlight textbooks"], ["10", "practice modes"], ["A4", "printable quizzes for teachers"]],
+        "audience": "For school students and teachers of English",
+        "note": "Interface in Russian. An independent project, not an official product of the textbook publisher.",
+        "url": "https://0011nvg.github.io/lexigo/",
+        "image": "assets/projects/lexigo.webp",
+        "image_m": "assets/projects/lexigo-m.webp",
+        "alt": "LEXIGO screen: choosing a Spotlight textbook"
+      },
+      {
+        "id": "rkn",
+        "title": "AI Practicum",
+        "kicker": "For teachers of Russian as an additional language",
+        "status": "In development",
+        "description": "From a prompt to a ready-to-use lesson task. The practicum shows teachers how to use AI tools to adapt texts, create speaking activities and work with mixed-ability classes.",
+        "facts": [["7", "in-depth course lessons"], ["90", "ready-made prompts and a builder"], ["5", "tool types: text, images, audio, video, slides"]],
+        "audience": "For teachers of Russian as an additional language",
+        "note": "The practicum is in Russian.",
+        "url": "https://0011nvg.github.io/-rkn-ai-praktikum/",
+        "image": "assets/projects/rkn.webp",
+        "image_m": "assets/projects/rkn-m.webp",
+        "alt": "Home page of the practicum “AI in teaching Russian as an additional language”"
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "05 / Contact",
+    "title": "Let's <em>get started</em>",
+    "intro": "To book a lesson, message me on Telegram. For collaboration, invitations and business enquiries, email works best.",
+    "actions": [
+      {"kind": "primary", "label": "Telegram", "title": "Book a Lesson", "detail": "@vicky_nmnk", "href": "https://t.me/vicky_nmnk", "external": true},
+      {"kind": "mail", "label": "Email", "title": "Get in Touch", "detail": "0011nvg@gmail.com", "href": "mailto:0011nvg@gmail.com", "external": false},
+      {"kind": "mail", "label": "For partners", "title": "Collaborate", "detail": "Business enquiries and invitations", "href": "mailto:0011nvg@gmail.com?subject=Collaboration", "external": false}
+    ],
+    "vk_label": "VK",
+    "vk_text": "My VK page (VKontakte)",
+    "note": "We'll agree on format, schedule and terms by message."
+  }
+}

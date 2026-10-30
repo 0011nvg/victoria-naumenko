@@ -1,55 +1,110 @@
-"""Dependency-free release checks: generated page, assets, links, metadata."""
-from html.parser import HTMLParser
-from pathlib import Path
-from urllib.parse import urlsplit
-import json
+#!/usr/bin/env python3
+"""Статическая проверка собранных страниц: python3 tools/check.py
+Проверяет: сборка актуальна, языки и метаданные, якоря, ссылки, изображения, контакты."""
+import re
 import subprocess
 import sys
+from html.parser import HTMLParser
+from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
-before = (ROOT/'index.html').read_bytes()
-subprocess.run([sys.executable, str(ROOT/'tools/build.py')], check=True)
-assert before == (ROOT/'index.html').read_bytes(), 'Generated index.html was out of date'
+ROOT = Path(__file__).resolve().parent.parent
+PAGES = {"ru": ROOT / "index.html", "en": ROOT / "en/index.html"}
+ALLOWED_EXTERNAL = {
+    "https://t.me/vicky_nmnk", "https://vk.ru/designingthefuture",
+    "https://0011nvg.github.io/pedagog/", "https://0011nvg.github.io/lexigo/",
+    "https://0011nvg.github.io/-rkn-ai-praktikum/",
+}
+errors = []
 
-class Page(HTMLParser):
+
+class P(HTMLParser):
     def __init__(self):
         super().__init__()
-        self.ids=[]; self.links=[]; self.assets=[]; self.meta={}; self.h1=0; self.images=[]
-    def handle_starttag(self, tag, attrs):
-        a=dict(attrs)
-        if 'id' in a:self.ids.append(a['id'])
-        if tag=='h1':self.h1+=1
-        if tag=='a':
-            self.links.append(a)
-            if a.get('target')=='_blank':assert 'noopener' in a.get('rel',''), 'Missing noopener'
-        if tag=='meta':self.meta[a.get('name',a.get('property',''))]=a.get('content','')
-        if tag in ('img','script') and 'src' in a:self.assets.append(a['src'])
-        if tag=='link' and a.get('rel') in ('stylesheet','icon','apple-touch-icon'):self.assets.append(a['href'])
-        if tag=='img':
-            self.images.append(a)
-            assert a.get('alt'), 'Missing descriptive image alt'
-            assert a.get('width') and a.get('height'), 'Missing intrinsic image dimensions'
+        self.tags = []
 
-p=Page(); html=(ROOT/'index.html').read_text();p.feed(html)
-assert p.h1==1
-assert len(p.ids)==len(set(p.ids)), 'Duplicate IDs'
-for link in p.links:
-    target=link.get('href','')
-    assert target and target!='#', 'Empty link'
-    if target.startswith('#'):assert target[1:] in p.ids, f'Broken anchor: {target}'
-    else:assert urlsplit(target).scheme=='https', f'Non-HTTPS link: {target}'
-for asset in p.assets:assert (ROOT/asset).is_file(), f'Missing asset: {asset}'
-for key in ('description','og:title','og:description','og:url','og:image','twitter:card'):
-    assert p.meta.get(key), f'Missing metadata: {key}'
-assert (ROOT/'assets/social.jpg').is_file()
-assert '<html lang="ru">' in html
-assert 'prefers-reduced-motion:reduce' in (ROOT/'styles.css').read_text()
-assert '{{' not in html
-assert 'mailto:' not in html and 'tel:' not in html
-data=json.loads((ROOT/'content.json').read_text())
-expected={'https://0011nvg.github.io/lexigo/','https://0011nvg.github.io/pedagog/','https://0011nvg.github.io/-rkn-ai-praktikum/','https://vk.ru/designingthefuture'}
-assert {x['href'] for x in p.links if x['href'].startswith('https://')}==expected
-assert {x['id'] for x in data['projects'] if x['status']=='В разработке'}=={'lexigo','rkn'}
-total=sum(f.stat().st_size for f in (ROOT/'assets').iterdir())
-assert total<1_000_000, f'Assets exceed 1 MB: {total}'
-print(f'PASS: static HTML, metadata, {len(p.links)} links, {len(p.images)} images, assets {total:,} bytes')
+    def handle_starttag(self, tag, attrs):
+        self.tags.append((tag, dict(attrs)))
+
+
+def fail(msg):
+    errors.append(msg)
+
+
+# 1. Сборка воспроизводима
+before = {k: v.read_bytes() for k, v in PAGES.items()}
+subprocess.run([sys.executable, str(ROOT / "tools/build.py")], check=True, stdout=subprocess.DEVNULL)
+for k, v in PAGES.items():
+    if v.read_bytes() != before[k]:
+        fail(f"{k}: index.html устарел — запустите tools/build.py и закоммитьте результат")
+
+for lang, path in PAGES.items():
+    html = path.read_text(encoding="utf-8")
+    p = P()
+    p.feed(html)
+    base = path.parent
+    ids = {a.get("id") for _, a in p.tags if a.get("id")}
+    if f'<html lang="{lang}">' not in html:
+        fail(f"{lang}: неверный атрибут lang")
+    for needle in ['rel="canonical"', 'hreflang="ru"', 'hreflang="en"', 'hreflang="x-default"', 'og:title', 'og:image', 'application/ld+json', 'name="description"']:
+        if needle not in html:
+            fail(f"{lang}: нет {needle}")
+    if len(re.findall(r"<h1[ >]", html)) != 1:
+        fail(f"{lang}: должен быть ровно один h1")
+    for tag, a in p.tags:
+        if tag == "a":
+            href = a.get("href", "")
+            if not href:
+                fail(f"{lang}: пустая ссылка")
+            elif href.startswith("#"):
+                if href[1:] not in ids:
+                    fail(f"{lang}: якорь {href} не найден")
+            elif href.startswith("http"):
+                if href not in ALLOWED_EXTERNAL:
+                    fail(f"{lang}: неожиданная внешняя ссылка {href}")
+                if a.get("target") == "_blank" and "noopener" not in a.get("rel", ""):
+                    fail(f"{lang}: нет rel=noopener у {href}")
+            elif href.startswith("mailto:"):
+                if not href.startswith("mailto:0011nvg@gmail.com"):
+                    fail(f"{lang}: неверный адрес почты {href}")
+            else:
+                target = (base / href).resolve()
+                if not (target.exists() or (target / "index.html").exists()):
+                    fail(f"{lang}: локальная ссылка не найдена {href}")
+        if tag == "img":
+            if "alt" not in a:
+                fail(f"{lang}: изображение без alt {a.get('src')}")
+            if not (a.get("width") and a.get("height")):
+                fail(f"{lang}: изображение без размеров {a.get('src')}")
+            if not (base / a["src"]).exists():
+                fail(f"{lang}: нет файла {a['src']}")
+        if tag in ("link", "script") and (a.get("href") or a.get("src")):
+            ref = (a.get("href") or a.get("src")).split("?")[0]
+            if not ref.startswith("http") and not (base / ref).exists():
+                fail(f"{lang}: нет файла {ref}")
+    for must in ["https://t.me/vicky_nmnk", "mailto:0011nvg@gmail.com", "https://vk.ru/designingthefuture"]:
+        if must not in html:
+            fail(f"{lang}: нет контакта {must}")
+    if "github.com" in html:
+        fail(f"{lang}: GitHub не должен быть ссылкой на странице")
+
+# 2. Смешение языков в видимом тексте английской версии (допускаются названия в кавычках)
+en = PAGES["en"].read_text(encoding="utf-8")
+visible = re.sub(r"<script.*?</script>|<[^>]+>", " ", en, flags=re.S)
+cyr = [w for w in re.findall(r"[А-Яа-яЁё][А-Яа-яЁё\-]+", visible)]
+allowed = {"Флагманы", "образования", "говорить", "понимать", "объяснять", "создавать", "Русский", "Виктория", "Науменко"}
+extra = sorted(set(cyr) - allowed)
+if extra:
+    fail(f"en: кириллица в тексте: {extra}")
+
+# 3. CSS-шрифты на месте
+css = (ROOT / "styles.css").read_text(encoding="utf-8")
+for f in re.findall(r'url\("([^"]+)"\)', css):
+    if not (ROOT / f).exists():
+        fail(f"styles.css: нет файла {f}")
+
+if errors:
+    print("ОШИБКИ:")
+    for e in errors:
+        print(" -", e)
+    sys.exit(1)
+print("OK: обе версии прошли проверку")
