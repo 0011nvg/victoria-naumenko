@@ -58,7 +58,7 @@ def head(c, other):
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>{e(m['title'])}</title>
   <meta name="description" content="{e(m['description'])}">
-  <meta name="theme-color" content="#070a1c">
+  <meta name="theme-color" content="#0c1236">
   <meta name="color-scheme" content="dark light">
   <link rel="canonical" href="{url}">
   <link rel="alternate" hreflang="ru" href="{SITE}">
